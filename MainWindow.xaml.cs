@@ -13,24 +13,27 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using System.IO;
+
 namespace TestingSystem
 {
-    public class Task
-    {
-        /// <summary>
-        /// Номер задачи
-        /// </summary>
-        public int ID { get; set; }
-        /// <summary>
-        /// Название задачи
-        /// </summary>
-        public string Name { get; set; }
-    }
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// Название текущей задачи
+        /// </summary>
+        private string currentTaskName = "Sorting";
         public MainWindow()
         {
             InitializeComponent();
+
+            // Получаем информацию о задаче Sorting
+            TaskReader taskReader = new TaskReader(@"Tasks/Sorting/Task.txt");
+            // Заполняем метки данными
+            TaskName.Content = taskReader.TaskName;
+            TaskDescription.Text = taskReader.TaskDescription;
+            TaskInputExample.Text = taskReader.InputExample;
+            TaskOutputExample.Text = taskReader.OutputExample;
         }
     }
 }
