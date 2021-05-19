@@ -15,9 +15,17 @@ using System.Windows.Shapes;
 
 namespace TestingSystem
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+    public class Task
+    {
+        /// <summary>
+        /// Номер задачи
+        /// </summary>
+        public int ID { get; set; }
+        /// <summary>
+        /// Название задачи
+        /// </summary>
+        public string Name { get; set; }
+    }
     public partial class MainWindow : Window
     {
         public MainWindow()
