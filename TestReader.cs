@@ -51,11 +51,17 @@ namespace TestingSystemConsole
         public TestReader(string pathToTestsFile)
         {
             // Открываем файл тестов
-            testsFile = new FileStream(pathToTestsFile, FileMode.Open);
-            
-            // Создаем для этого файла поток для чтения
-            reader = new StreamReader(testsFile);
+            try
+            {
+                testsFile = new FileStream(pathToTestsFile, FileMode.Open);
 
+                // Создаем для этого файла поток для чтения
+                reader = new StreamReader(testsFile);
+            }
+            catch(Exception e)
+            {
+                throw new Exception("Невозможно открыть файл тестов");
+            }
             // Считываем количество тестов в файле
             testsQuantity = Convert.ToInt32(reader.ReadLine());
             //Console.WriteLine("В файле записано {0} тестов!", testsQuantity);
@@ -69,10 +75,14 @@ namespace TestingSystemConsole
             }
         }
 
+
+        public void Close()
+        {
+            reader.Close();
+        }
         ~TestReader()
         {
             reader.Close();
-            testsFile.Close();
         }
 
         /// <summary>
@@ -99,16 +109,12 @@ namespace TestingSystemConsole
                 {
                     currentTestData += reader.ReadLine() + "\n";
                 }
-                //if (reader.EndOfStream)
-                //{
-                //    Console.WriteLine("Находимся в конце потока!");
-                //}
+
                 currentTestNumber++;
                 return currentTestData;
             }
             else
             {
-                //Console.WriteLine("В файле не осталось тестовых данных!");
                 return "";
             }
         }

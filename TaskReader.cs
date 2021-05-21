@@ -88,6 +88,7 @@ namespace TestingSystem
             taskDesription = peaces[1];
             inputExample = peaces[2];
             outputExample = peaces[3];
+            file.Close();
         }
     }
 }

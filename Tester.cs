@@ -159,6 +159,13 @@ namespace TestingSystemConsole
             }
         }
 
+        public void Close()
+        {
+            testReader.Close();
+            answersReader.Close();
+            userExecutable.Dispose();
+            logFile.Close();
+        }
 
         /// <summary>
         /// Начинает тестирование пользовательской программы
@@ -241,8 +248,12 @@ namespace TestingSystemConsole
                     }
                 }
                 // Подсчитываем среднее время работы программы для текущего теста
-                workingTimeMean /= testIterations;
-                report.results[counter].AverageElapsedTime = workingTimeMean;
+                if(report.results[counter].IsPassed)
+                {
+                    workingTimeMean /= testIterations;
+                    report.results[counter].AverageElapsedTime = workingTimeMean;
+                }
+                
 
                 // Пишем результат тестирования в файл
                 SaveLogToFile(report.results[counter]);

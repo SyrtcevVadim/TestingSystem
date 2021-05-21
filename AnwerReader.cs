@@ -25,10 +25,13 @@ namespace TestingSystemConsole
             reader = new StreamReader(answersFile);
         }
 
+        public void Close()
+        {
+            reader.Close();
+        }
         ~AnwerReader()
         {
             reader.Close();
-            answersFile.Close();
         }
 
         /// <summary>
